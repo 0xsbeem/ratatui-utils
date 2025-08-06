@@ -1,0 +1,50 @@
+[package]
+name = "ratatui-utils"
+version = "0.1.0"
+edition = "2021"
+authors = ["Christian Aghyarian <c1ihvzhz@4wrd.cc>"]
+license = "MIT"
+description = "Utility managers and systems for building ratatui terminal applications"
+repository = "https://github.com/0xsbeem/ratatui-utils"
+
+[dependencies]
+# Core ratatui and crossterm for terminal handling
+ratatui = { version = "0.28", default-features = false }
+crossterm = { version = "0.28", features = ["events"] }
+
+# Serialization support for state management
+serde = { version = "1.0", features = ["derive"], optional = true }
+
+# Time handling for timestamps and duration formatting
+time = { version = "0.3", features = ["formatting", "local-offset"], optional = true }
+
+# Logging support (optional)
+tracing = { version = "0.1.41", optional = true }
+
+# Unicode width calculations for text handling
+unicode-width = "0.1"
+
+[dev-dependencies]
+# Testing utilities
+tokio = { version = "1.0", features = ["full"] }
+env_logger = "0.11"
+
+[features]
+default = ["time"]
+
+# Serialization support for state persistence
+serde = ["dep:serde"]
+
+# Time-based utilities
+time = ["dep:time"]
+
+# Logging integration
+tracing = ["dep:tracing"]
+
+# All optional features
+full = ["serde", "time", "tracing"]
+
+# Library organization
+[lib]
+name = "ratatui_utils"
+path = "src/lib.rs"
